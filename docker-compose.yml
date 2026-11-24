@@ -1,0 +1,26 @@
+# Entorno completo local: MongoDB + Kinkō.  Uso:  docker compose up --build   →  http://localhost:4000
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes: [mongo:/data/db]
+    healthcheck: { test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"], interval: 10s, retries: 5 }
+  kinko:
+    build: .
+    restart: unless-stopped
+    depends_on: { mongo: { condition: service_healthy } }
+    ports: ["4000:4000"]
+    environment:
+      NODE_ENV: production
+      PUBLIC_URL: http://localhost:4000
+      CORS_ORIGINS: http://localhost:4000
+      MONGODB_URI: mongodb://mongo:27017
+      JWT_SECRET: ${JWT_SECRET:?Define JWT_SECRET en .env}
+      DATA_ENCRYPTION_KEY: ${DATA_ENCRYPTION_KEY:?Define DATA_ENCRYPTION_KEY en .env}
+      DEMO_MODE: "true"
+      SEED_DEMO: "true"
+      REQUIRE_2FA_STAFF: "false"
+      COOKIE_SECURE: "false"
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+    volumes: [uploads:/data]
+volumes: { mongo: {}, uploads: {} }

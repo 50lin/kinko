@@ -1,0 +1,22 @@
+{
+  "name": "kinko",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Kinkō — plataforma de bienestar mental y seguimiento clínico (v1)",
+  "workspaces": ["packages/*", "apps/*"],
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:api": "npm run dev -w @kinko/api",
+    "dev:web": "npm run dev -w @kinko/web",
+    "build": "npm run build -w @kinko/api && npm run build -w @kinko/web",
+    "build:demo": "npm run build:demo -w @kinko/web",
+    "start": "npm run start -w @kinko/api",
+    "seed": "npm run seed -w @kinko/api",
+    "test": "npm run test -w @kinko/core && npm run test -w @kinko/api",
+    "typecheck": "npm run typecheck -w @kinko/core && npm run typecheck -w @kinko/api && npm run typecheck -w @kinko/web",
+    "cap:sync": "npm run cap:sync -w @kinko/web",
+    "android": "npm run android -w @kinko/web",
+    "ios": "npm run ios -w @kinko/web"
+  },
+  "engines": { "node": ">=20" }
+}

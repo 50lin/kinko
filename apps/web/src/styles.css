@@ -1,0 +1,50 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --color-brand-50: #eefaf6; --color-brand-100: #d5f2e9; --color-brand-200: #aee5d5; --color-brand-300: #7fd1bb;
+  --color-brand-400: #52b9a1; --color-brand-500: #339d87; --color-brand-600: #267e6e; --color-brand-700: #22655a;
+  --color-brand-800: #1f514a; --color-brand-900: #1c433e; --color-brand-950: #0b2724;
+  --color-ink-50: #f7f6f2; --color-ink-100: #efede6; --color-ink-200: #dedbd1; --color-ink-300: #c3bfb2; --color-ink-400: #9a968a;
+  --color-ink-500: #77746a; --color-ink-600: #5c5a52; --color-ink-700: #45443e; --color-ink-800: #2d2d29; --color-ink-900: #1c1c1a; --color-ink-950: #0e0f0e;
+  --color-night-800: #15201f; --color-night-900: #0e1514; --color-night-950: #090e0d;
+  --color-amber-k: #e8a15c; --color-lavender: #7c83d6; --color-rose-k: #d98ba8; --color-sky-k: #6aa9d8;
+  --radius-4xl: 2rem;
+  --shadow-soft: 0 1px 2px rgb(16 24 22 / 0.04), 0 8px 24px -8px rgb(16 24 22 / 0.10);
+  --shadow-glow: 0 0 0 1px rgb(51 157 135 / 0.15), 0 12px 40px -12px rgb(51 157 135 / 0.45);
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-fade: fade .35s ease-out both;
+  @keyframes float { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-6px) } }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px) } to { opacity: 1; transform: none } }
+}
+
+@layer base {
+  html { -webkit-tap-highlight-color: transparent; }
+  body { @apply bg-ink-50 text-ink-900 antialiased dark:bg-night-900 dark:text-ink-100; font-feature-settings: "ss01", "cv11"; }
+  ::selection { background: rgb(51 157 135 / 0.25); }
+  h1, h2, h3 { letter-spacing: -0.01em; }
+  input, select, textarea { font: inherit; }
+  :focus-visible { outline: 2px solid var(--color-brand-400); outline-offset: 2px; border-radius: 8px; }
+}
+@layer components {
+  .card { @apply rounded-3xl bg-white/85 shadow-[var(--shadow-soft)] ring-1 ring-ink-200/60 backdrop-blur-sm dark:bg-night-800/80 dark:ring-white/5; }
+  .glass { @apply bg-white/70 backdrop-blur-xl dark:bg-night-900/70; }
+  .label { @apply mb-1.5 block text-xs font-semibold uppercase tracking-wider text-ink-500 dark:text-ink-400; }
+  .input { @apply w-full rounded-2xl border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-900 placeholder:text-ink-400 transition focus:border-brand-400 focus:ring-4 focus:ring-brand-400/15 focus:outline-none dark:border-white/10 dark:bg-night-950/60 dark:text-ink-100; }
+  .link { @apply font-medium text-brand-600 underline-offset-4 hover:underline dark:text-brand-300; }
+  .muted { @apply text-ink-500 dark:text-ink-400; }
+  .bg-aurora { background: radial-gradient(1200px 600px at 10% -10%, rgb(82 185 161 / .18), transparent 60%), radial-gradient(900px 500px at 100% 0%, rgb(124 131 214 / .14), transparent 60%), radial-gradient(800px 500px at 50% 110%, rgb(232 161 92 / .10), transparent 60%); }
+  .prose-k h2 { @apply mt-6 mb-2 font-display text-xl text-ink-900 dark:text-white; }
+  .prose-k p { @apply my-3 leading-relaxed text-ink-700 dark:text-ink-200; }
+  .prose-k ul, .prose-k ol { @apply my-3 space-y-1.5 pl-5 text-ink-700 dark:text-ink-200; }
+  .prose-k ul { list-style: disc; } .prose-k ol { list-style: decimal; }
+  .prose-k strong { @apply font-semibold text-ink-900 dark:text-white; }
+  .scrollbar-none { scrollbar-width: none; } .scrollbar-none::-webkit-scrollbar { display: none; }
+  .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+}
+input[type=range].kinko-range { -webkit-appearance: none; appearance: none; height: 8px; border-radius: 999px; background: linear-gradient(90deg, #d98ba8, #e3c25a, #52b9a1); outline: none; }
+input[type=range].kinko-range::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; border-radius: 999px; background: white; border: 3px solid #339d87; box-shadow: 0 4px 14px rgb(0 0 0 / .18); cursor: pointer; }
+input[type=range].kinko-range::-moz-range-thumb { width: 24px; height: 24px; border-radius: 999px; background: white; border: 3px solid #339d87; cursor: pointer; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }

@@ -1,0 +1,10 @@
+node_modules
+dist
+dist-demo
+.data
+.env
+*.log
+apps/web/android
+apps/web/ios
+coverage
+.DS_Store
